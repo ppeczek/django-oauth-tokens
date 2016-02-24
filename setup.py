@@ -21,6 +21,7 @@ setup(
         'django-taggit',
         'django-annoying',
         'distributedlock',
+        'html5lib',
         'simplejson',
     ],
     classifiers=[

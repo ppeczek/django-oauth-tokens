@@ -33,6 +33,7 @@ Applications also can imitate authorized requests on behalf of user
 * requests_oauthlib
 * django-taggit
 * beautifulsoup4
+* html5lib
 
 In order to test with quicktest.py, you also need:
 
