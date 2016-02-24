@@ -84,7 +84,7 @@ class FacebookAccessToken(AccessTokenBase):
     def authorization_get_request(self):
         response = super(FacebookAccessToken, self).authorization_get_request()
 
-        bs = BeautifulSoup(response.content)
+        bs = BeautifulSoup(response.content, 'html5lib')
         if bs.find('title').text == 'Error':
             raise WrongRedirectUrl(bs.find('div').text)
 

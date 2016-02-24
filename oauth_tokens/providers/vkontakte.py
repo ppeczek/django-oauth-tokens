@@ -64,7 +64,7 @@ class VkontakteAuthRequest(AuthRequestBase):
                 u'Vkontakte auth error: Invalid login or password error. username: %s' % self.username)
 
         if 'act=blocked' in response.url:
-            content = BeautifulSoup(response.content)
+            content = BeautifulSoup(response.content, 'html5lib')
             reason = content.find('div', **{'class': re.compile('login_blocked_panel$')}).text
             raise AccountLocked(u"User %s for provider %s is blocked for reason: %s" %
                                 (self.username, self.provider, reason))

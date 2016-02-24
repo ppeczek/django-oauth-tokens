@@ -81,7 +81,7 @@ class AuthRequestBase(object, SettingsMixin):
         pass
 
     def get_form_data_from_content(self, content, **kwargs):
-        bs = BeautifulSoup(content)
+        bs = BeautifulSoup(content, 'html5lib')
         form = self.get_form_from_bs_content(bs, **kwargs)
         return self.get_form_data(form)
 

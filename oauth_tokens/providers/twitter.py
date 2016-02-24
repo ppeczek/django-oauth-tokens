@@ -61,11 +61,15 @@ class TwitterAccessToken(AccessTokenBase):
         return self.auth_request.session.get(url=authorization_url)  # twitter don't like headers here
 
     def process_authorization_response(self, response):
-        bs = BeautifulSoup(response.content)
+        bs = BeautifulSoup(response.content, 'html5lib')
+        for link in bs.find_all('a'):
+            try:
+                if link.get('class')[0] == 'maintain-context':
+                    code = link.get('href').split('=')[-1]
+            except:
+                pass
         try:
-            code = int(bs.find('code').text)
+            log.debug('Got twitter verifier: %s for user %s' % (code, self.auth_request.username))
+            return code
         except:
             raise Exception("Wrong response on authorization post request for user %s" % self.auth_request.username)
-
-        log.debug('Got twitter verifier: %s for user %s' % (code, self.auth_request.username))
-        return str(code)

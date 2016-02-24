@@ -64,7 +64,7 @@ class InstagramAccessToken(AccessTokenBase):
 
     def authorization_permissions_request(self, response):
         if response.url[:72] == 'https://www.instagram.com/oauth/authorize?response_type=token&client_id=':
-            bs = BeautifulSoup(response.content)
+            bs = BeautifulSoup(response.content, 'html5lib')
             form = self.auth_request.get_form_from_bs_content(bs)
             method, action, data = self.auth_request.get_form_data(form)
             del data['username']
