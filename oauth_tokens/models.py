@@ -6,7 +6,6 @@ from annoying.fields import JSONField
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
-from django.utils.importlib import import_module
 from requests_oauthlib.oauth1_session import TokenRequestDenied
 from taggit.managers import TaggableManager
 
@@ -16,6 +15,10 @@ try:
     from django.db.transaction import atomic
 except ImportError:
     from django.db.transaction import commit_on_success as atomic
+try:
+    from importlib import import_module
+except ImportError:
+    from django.utils.importlib import import_module
 
 
 log = logging.getLogger('oauth_tokens')
